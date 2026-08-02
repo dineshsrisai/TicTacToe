@@ -3,9 +3,9 @@ using namespace std;
 
 const int n = 3;
 const int m = 3;
-vector<vector<char>> v(n, vector<char>(m));
+vector<vector<char>> v(n, vector<char>(m, ' '));
 
-void printBoard(vector<vector<char>>& v) {
+void printBoard(const vector<vector<char>>& v) {
 	cout << "----------------------------\n";
 	for (int i = 0; i < n; i++) {
 		cout << "|";
@@ -20,12 +20,12 @@ bool win(vector<vector<char>>&v, int row, int col) {
 	return false;
 }
 
-bool check(int row, int col, vector<vector<char>> &v) {
-	if (row < 0 || col < 0 || row >= n || col >= n) {
+bool check(int row, int col, const vector<vector<char>> &v) {
+	if (row < 0 || col < 0 || row >= n || col >= m) {
 		cout << "Invalid\n";
 		return false;
 	}
-	if (v[row][col] != '\0') {
+	if (v[row][col] != ' ') {
 		cout << "Occupied\n";
 		return false;
 	}
@@ -36,6 +36,7 @@ bool check(int row, int col, vector<vector<char>> &v) {
 int main() {
 	printBoard(v);
 	int player1 = 5, player2 = 4, totalMoves = 9;
+	bool won = false;
 	while (totalMoves--) {
 		int row, col;
 		cin >> row >> col;
@@ -46,23 +47,23 @@ int main() {
 			v[row][col] = 'X';
 			if (win(v, row, col)) {
 				cout << "Player1 wins\n";
+				won = true;
 				break;
-			} else {
-				printBoard(v);
 			}
 			player1--;
 		} else {
 			v[row][col] = 'O';
 			if (win(v, row, col)) {
 				cout << "Player2 wins\n";
+				won = true;
 				break;
-			} else {
-				printBoard(v);
 			}
 			player2--;
 		}
+		printBoard(v);
 	}
-	if (player1 == 0 && player2 == 0) {
+	printBoard(v);
+	if (!won) {
 		cout << "It's a draw!\n";
 	}
 	return 0;
