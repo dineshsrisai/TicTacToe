@@ -1,6 +1,6 @@
 # Tic-Tac-Toe
 
-A simple console-based Tic-Tac-Toe game built using C++.
+A simple Tic-Tac-Toe game built using C++.
 
 ## Features
 - Two-player gameplay
