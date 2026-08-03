@@ -18,6 +18,7 @@ void printBoard(const vector<vector<char>> &v)
 		cout << "\n-------------\n";
 	}
 }
+
 bool win(const vector<vector<char>> &v, int row, int col)
 {
 	if (v[row][col] == ' ')
@@ -67,6 +68,7 @@ bool win(const vector<vector<char>> &v, int row, int col)
 	}
 	return (d1 || d2 || c || r);
 }
+
 bool check(int row, int col, const vector<vector<char>> &v)
 {
 	if (row < 0 || col < 0 || row >= n || col >= m)
@@ -81,6 +83,7 @@ bool check(int row, int col, const vector<vector<char>> &v)
 	}
 	return true;
 }
+
 int main()
 {
 	printBoard(v);
@@ -93,7 +96,7 @@ int main()
 		{
 			if (!(cin >> row >> col))
 			{
-				cout << "\nInput terminated.\n";
+				cout << "\nInput terminated\n";
 				return 0;
 			}
 			if (check(row, col, v))
@@ -101,7 +104,6 @@ int main()
 				break;
 			}
 		}
-
 		if (player1 > player2)
 		{
 			v[row][col] = 'X';
@@ -112,7 +114,6 @@ int main()
 				won = true;
 				break;
 			}
-
 			player1--;
 		}
 		else
@@ -125,15 +126,13 @@ int main()
 				won = true;
 				break;
 			}
-
 			player2--;
 		}
-
 		printBoard(v);
 	}
 	if (!won)
 	{
-		cout << "It's a draw!\n";
+		cout << "Draw\n";
 	}
 	return 0;
 }
