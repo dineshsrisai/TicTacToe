@@ -21,6 +21,9 @@ void printBoard(const vector<vector<char>> &v)
 
 bool win(vector<vector<char>> &v, int row, int col)
 {
+	if (v[row][col] == ' ') {
+		return false;
+	}
 	bool d1 = false, d2 = false, r = true, c = true;
 	for (int j = 0; j < m; j++) {
 		if (v[row][col] != v[row][j]) {
@@ -34,12 +37,22 @@ bool win(vector<vector<char>> &v, int row, int col)
 			break;
 		}
 	}
-	if (row > 0 && row < n - 1 && col > 0 && col < m - 1) {
-		if (v[row - 1][col - 1] != v[row][col] || v[row][col] != v[row + 1][col + 1]) {
-			d1 = false;
+	if (row == col) {
+		d1 = true;
+		for (int i = 0; i < n; i++) {
+			if (v[i][i] != v[row][col]) {
+				d1 = false;
+				break;
+			}
 		}
-		if (v[row - 1][col + 1] != v[row][col] || v[row + 1][col - 1] != v[row][col]) {
-			d2 = false;
+	}
+	if (row + col == n - 1) {
+		d2 = true;
+		for (int i = 0; i < m; i++) {
+			if (v[i][n - i - 1] != v[row][col]) {
+				d2 = false;
+				break;
+			}
 		}
 	}
 	return (d1 || d2 || c || r);
