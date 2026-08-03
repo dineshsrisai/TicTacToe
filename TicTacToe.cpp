@@ -18,38 +18,48 @@ void printBoard(const vector<vector<char>> &v)
 		cout << "\n-------------\n";
 	}
 }
-
-bool win(vector<vector<char>> &v, int row, int col)
+bool win(const vector<vector<char>> &v, int row, int col)
 {
-	if (v[row][col] == ' ') {
+	if (v[row][col] == ' ')
+	{
 		return false;
 	}
 	bool d1 = false, d2 = false, r = true, c = true;
-	for (int j = 0; j < m; j++) {
-		if (v[row][col] != v[row][j]) {
+	for (int j = 0; j < m; j++)
+	{
+		if (v[row][col] != v[row][j])
+		{
 			r = false;
 			break;
 		}
 	}
-	for (int i = 0; i < n; i++) {
-		if (v[row][col] != v[i][col]) {
+	for (int i = 0; i < n; i++)
+	{
+		if (v[row][col] != v[i][col])
+		{
 			c = false;
 			break;
 		}
 	}
-	if (row == col) {
+	if (row == col)
+	{
 		d1 = true;
-		for (int i = 0; i < n; i++) {
-			if (v[i][i] != v[row][col]) {
+		for (int i = 0; i < n; i++)
+		{
+			if (v[i][i] != v[row][col])
+			{
 				d1 = false;
 				break;
 			}
 		}
 	}
-	if (row + col == n - 1) {
+	if (row + col == n - 1)
+	{
 		d2 = true;
-		for (int i = 0; i < m; i++) {
-			if (v[i][n - i - 1] != v[row][col]) {
+		for (int i = 0; i < m; i++)
+		{
+			if (v[i][n - i - 1] != v[row][col])
+			{
 				d2 = false;
 				break;
 			}
@@ -57,7 +67,6 @@ bool win(vector<vector<char>> &v, int row, int col)
 	}
 	return (d1 || d2 || c || r);
 }
-
 bool check(int row, int col, const vector<vector<char>> &v)
 {
 	if (row < 0 || col < 0 || row >= n || col >= m)
@@ -72,7 +81,6 @@ bool check(int row, int col, const vector<vector<char>> &v)
 	}
 	return true;
 }
-
 int main()
 {
 	printBoard(v);
@@ -81,20 +89,30 @@ int main()
 	while (totalMoves--)
 	{
 		int row, col;
-		cin >> row >> col;
-		while (!check(row, col, v))
+		while (true)
 		{
-			cin >> row >> col;
+			if (!(cin >> row >> col))
+			{
+				cout << "\nInput terminated.\n";
+				return 0;
+			}
+			if (check(row, col, v))
+			{
+				break;
+			}
 		}
+
 		if (player1 > player2)
 		{
 			v[row][col] = 'X';
 			if (win(v, row, col))
 			{
+				printBoard(v);
 				cout << "Player1 wins\n";
 				won = true;
 				break;
 			}
+
 			player1--;
 		}
 		else
@@ -102,15 +120,17 @@ int main()
 			v[row][col] = 'O';
 			if (win(v, row, col))
 			{
+				printBoard(v);
 				cout << "Player2 wins\n";
 				won = true;
 				break;
 			}
+
 			player2--;
 		}
+
 		printBoard(v);
 	}
-	printBoard(v);
 	if (!won)
 	{
 		cout << "It's a draw!\n";
